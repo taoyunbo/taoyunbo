@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="MysqlContext" targetRuntime="MyBatis3" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
+        <commentGenerator type="com.yunbo.demo.db.CommentGenerator">
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/test_db"
+                        userId="admin"
+                        password="taoyunbo">
+            <property name="nullCatalogMeansCurrent" value="true" />
+        </jdbcConnection>
+        <!--jdbcConnection driverClass="{spring.datasource.driver-class-name}" connectionURL="{spring.datasource.url}" userId="{spring.datasource.username}" password="{spring.datasource.password}">
+            <property name="nullCatalogMeansCurrent" value="true" />
+        </jdbcConnection-->
+
+
+        <javaTypeResolver type="com.yunbo.demo.db.CustomizeJavaTypeResolverDefaultImpl">
+            <!-- This property is used to specify whether MyBatis Generator should force the use of JSR-310 data types for DATE, TIME,
+            and TIMESTAMP fields, rather than using java.util.Date -->
+            <property name="useJSR310Types" value="true"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.yunbo.demo.db.model" targetProject="src/main/java"/>
+
+        <sqlMapGenerator targetPackage="com.yunbo.demo.mapper" targetProject="src/main/resources/db"/>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.yunbo.demo.mapper"
+                             targetProject="src/main/java"/>
+
+        <table tableName="%">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+    </context>
+</generatorConfiguration>

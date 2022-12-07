@@ -1,0 +1,17 @@
+
+type TestInfo {
+    testId: String
+    student: String
+    teacher: String
+    findDemo: [DemoInfo]
+}
+type DemoInfo {
+    testId: String
+    name: String
+    age: String
+}
+
+
+type Query{
+testAndDemo(testId: String): TestInfo
+}

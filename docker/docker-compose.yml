@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+  db:
+    container_name: test
+    build: ./docker/ddl/*.sql
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: test_db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: taoyunbo
+      MYSQL_ROOT_PASSWORD: taoyunbo
+    ports:
+    - "3306:3306"
+    volumes:
+      - ./docker/ddl:/docker-entrypoint-ddl/*.sql
+      - ./docker/conf:/etc/conf
+
+  wait:
+    image: willwill/wait-for-it:latest
