@@ -6,12 +6,88 @@ type TestInfo {
     findDemo: [DemoInfo]
 }
 type DemoInfo {
+    id: String
     testId: String
     name: String
     age: String
 }
 
+type CountryOrganization {
+    countryIsoCode: String
+    countryName: String
+    sort: Int
+    organizations: [Organization]
+}
+type Organization {
+    organizationId: String
+    organizationName: String
+    homeBanners: [HomeBanner]
+}
+type HomeBanner {
+    languageCode: String
+    bannerText: String
+}
+
+type OrganizationServices {
+    organizationId: ID!
+    gkaServiceId: ID!
+    serviceId: ID!
+    serviceName: String
+    serviceUrl: String
+    serviceImageS3Key: String
+    serviceActiveIconS3Key: String
+    serviceInactiveIconS3Key: String
+    sort: Int
+}
+
+type OrganizationIdps {
+    organizationId: ID!
+    idpServiceId: ID!
+    updateUserInfoUrl: String
+}
+type OrganizationUrls {
+    organizationId: ID!
+    urlType: String
+    url: String
+}
+
+type Notifications {
+    notificationList: [NotificationItem]
+    previousAt: String
+
+}
+type NotificationItem {
+    notificationId: String
+    title: String
+    body: String
+    createdAt: String
+    url: String
+}
+
+type KintoServices{
+    upcoming: [KintoServiceItem]
+    history: [KintoServiceItem]
+}
+
+
+type KintoServiceItem{
+    url: String
+    country: String
+    idpServiceId: String
+    contents: [KintoServiceItemContent]
+}
+
+type KintoServiceItemContent{
+    key: String
+    value: String
+}
 
 type Query{
-testAndDemo(testId: String): TestInfo
+    testAndDemo(testId: String): [TestInfo]
+    countryOrganizations: [CountryOrganization]
+    organizationServices(organizationId: ID): [OrganizationServices]
+    organizationIdps(organizationId: ID): [OrganizationIdps]
+    organizationUrls(organizationId: ID): [OrganizationUrls]
+    notifications(globalAccountId: String,language: String!, until: String, limit: Int!): Notifications!
+    kintoServices(globalAccountId: String!, language: String!): KintoServices!
 }

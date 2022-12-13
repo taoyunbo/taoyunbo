@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yunbo.demo.mapper.DemoMapper">
   <resultMap id="BaseResultMap" type="com.yunbo.demo.db.model.Demo">
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="test_id" jdbcType="VARCHAR" property="testId" />
+    <id column="test_id" jdbcType="VARCHAR" property="testId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="age" jdbcType="VARCHAR" property="age" />
   </resultMap>
@@ -66,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, test_id, name, age
+    test_id, name, age
   </sql>
   <select id="selectByExample" parameterType="com.yunbo.demo.db.model.DemoExample" resultMap="BaseResultMap">
     select
@@ -86,11 +85,11 @@
     select 
     <include refid="Base_Column_List" />
     from demo
-    where id = #{id,jdbcType=VARCHAR}
+    where test_id = #{testId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from demo
-    where id = #{id,jdbcType=VARCHAR}
+    where test_id = #{testId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.yunbo.demo.db.model.DemoExample">
     delete from demo
@@ -99,18 +98,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.yunbo.demo.db.model.Demo">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
     insert into demo (test_id, name, age
       )
     values (#{testId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{age,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.yunbo.demo.db.model.Demo">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
     insert into demo
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="testId != null">
@@ -144,9 +137,6 @@
   <update id="updateByExampleSelective" parameterType="map">
     update demo
     <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=VARCHAR},
-      </if>
       <if test="record.testId != null">
         test_id = #{record.testId,jdbcType=VARCHAR},
       </if>
@@ -163,8 +153,7 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update demo
-    set id = #{record.id,jdbcType=VARCHAR},
-      test_id = #{record.testId,jdbcType=VARCHAR},
+    set test_id = #{record.testId,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR},
       age = #{record.age,jdbcType=VARCHAR}
     <if test="_parameter != null">
@@ -174,9 +163,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.yunbo.demo.db.model.Demo">
     update demo
     <set>
-      <if test="testId != null">
-        test_id = #{testId,jdbcType=VARCHAR},
-      </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
@@ -184,14 +170,13 @@
         age = #{age,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
+    where test_id = #{testId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yunbo.demo.db.model.Demo">
     update demo
-    set test_id = #{testId,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
+    set name = #{name,jdbcType=VARCHAR},
       age = #{age,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
+    where test_id = #{testId,jdbcType=VARCHAR}
   </update>
   <select id="selectByExampleWithRowbounds" parameterType="com.yunbo.demo.db.model.DemoExample" resultMap="BaseResultMap">
     select

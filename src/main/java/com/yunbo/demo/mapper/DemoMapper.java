@@ -11,7 +11,7 @@ public interface DemoMapper {
 
     int deleteByExample(DemoExample example);
 
-    int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(String testId);
 
     int insert(Demo record);
 
@@ -21,7 +21,7 @@ public interface DemoMapper {
 
     List<Demo> selectByExample(DemoExample example);
 
-    Demo selectByPrimaryKey(String id);
+    Demo selectByPrimaryKey(String testId);
 
     int updateByExampleSelective(@Param("record") Demo record, @Param("example") DemoExample example);
 
