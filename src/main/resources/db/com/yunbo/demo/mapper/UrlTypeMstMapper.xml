@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yunbo.demo.mapper.UrlTypeMstMapper">
+  <resultMap id="BaseResultMap" type="com.yunbo.demo.db.model.UrlTypeMst">
+    <id column="url_type" jdbcType="VARCHAR" property="urlType" />
+    <result column="url_type_name" jdbcType="VARCHAR" property="urlTypeName" />
+    <result column="gmt_deleted" jdbcType="TIMESTAMP" property="gmtDeleted" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="updater" jdbcType="VARCHAR" property="updater" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    url_type, url_type_name, gmt_deleted, creator, gmt_create, updater, gmt_modified
+  </sql>
+  <select id="selectByExample" parameterType="com.yunbo.demo.db.model.UrlTypeMstExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from url_type_mst
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from url_type_mst
+    where url_type = #{urlType,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from url_type_mst
+    where url_type = #{urlType,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yunbo.demo.db.model.UrlTypeMstExample">
+    delete from url_type_mst
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yunbo.demo.db.model.UrlTypeMst">
+    insert into url_type_mst (url_type, url_type_name, gmt_deleted, 
+      creator, gmt_create, updater, 
+      gmt_modified)
+    values (#{urlType,jdbcType=VARCHAR}, #{urlTypeName,jdbcType=VARCHAR}, #{gmtDeleted,jdbcType=TIMESTAMP}, 
+      #{creator,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
+      #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yunbo.demo.db.model.UrlTypeMst">
+    insert into url_type_mst
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="urlType != null">
+        url_type,
+      </if>
+      <if test="urlTypeName != null">
+        url_type_name,
+      </if>
+      <if test="gmtDeleted != null">
+        gmt_deleted,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="updater != null">
+        updater,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="urlType != null">
+        #{urlType,jdbcType=VARCHAR},
+      </if>
+      <if test="urlTypeName != null">
+        #{urlTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtDeleted != null">
+        #{gmtDeleted,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null">
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yunbo.demo.db.model.UrlTypeMstExample" resultType="java.lang.Long">
+    select count(*) from url_type_mst
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update url_type_mst
+    <set>
+      <if test="record.urlType != null">
+        url_type = #{record.urlType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.urlTypeName != null">
+        url_type_name = #{record.urlTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gmtDeleted != null">
+        gmt_deleted = #{record.gmtDeleted,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null">
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gmtCreate != null">
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null">
+        updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gmtModified != null">
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update url_type_mst
+    set url_type = #{record.urlType,jdbcType=VARCHAR},
+      url_type_name = #{record.urlTypeName,jdbcType=VARCHAR},
+      gmt_deleted = #{record.gmtDeleted,jdbcType=TIMESTAMP},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      updater = #{record.updater,jdbcType=VARCHAR},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yunbo.demo.db.model.UrlTypeMst">
+    update url_type_mst
+    <set>
+      <if test="urlTypeName != null">
+        url_type_name = #{urlTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtDeleted != null">
+        gmt_deleted = #{gmtDeleted,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null">
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where url_type = #{urlType,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yunbo.demo.db.model.UrlTypeMst">
+    update url_type_mst
+    set url_type_name = #{urlTypeName,jdbcType=VARCHAR},
+      gmt_deleted = #{gmtDeleted,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where url_type = #{urlType,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByExampleWithRowbounds" parameterType="com.yunbo.demo.db.model.UrlTypeMstExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from url_type_mst
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

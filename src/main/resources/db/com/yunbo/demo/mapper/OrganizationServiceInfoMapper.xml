@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yunbo.demo.mapper.OrganizationServiceInfoMapper">
+  <resultMap id="BaseResultMap" type="com.yunbo.demo.db.model.OrganizationServiceInfo">
+    <id column="gka_service_id" jdbcType="VARCHAR" property="gkaServiceId" />
+    <result column="service_id" jdbcType="VARCHAR" property="serviceId" />
+    <result column="organization_id" jdbcType="VARCHAR" property="organizationId" />
+    <result column="service_name" jdbcType="VARCHAR" property="serviceName" />
+    <result column="service_url" jdbcType="VARCHAR" property="serviceUrl" />
+    <result column="service_image_s3_key" jdbcType="VARCHAR" property="serviceImageS3Key" />
+    <result column="service_active_icon_s3_key" jdbcType="VARCHAR" property="serviceActiveIconS3Key" />
+    <result column="service_inactive_icon_s3_key" jdbcType="VARCHAR" property="serviceInactiveIconS3Key" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="gmt_deleted" jdbcType="TIMESTAMP" property="gmtDeleted" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="updater" jdbcType="VARCHAR" property="updater" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    gka_service_id, service_id, organization_id, service_name, service_url, service_image_s3_key, 
+    service_active_icon_s3_key, service_inactive_icon_s3_key, sort, gmt_deleted, creator, 
+    gmt_create, updater, gmt_modified
+  </sql>
+  <select id="selectByExample" parameterType="com.yunbo.demo.db.model.OrganizationServiceInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from organization_service_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from organization_service_info
+    where gka_service_id = #{gkaServiceId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from organization_service_info
+    where gka_service_id = #{gkaServiceId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yunbo.demo.db.model.OrganizationServiceInfoExample">
+    delete from organization_service_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yunbo.demo.db.model.OrganizationServiceInfo">
+    insert into organization_service_info (gka_service_id, service_id, organization_id, 
+      service_name, service_url, service_image_s3_key, 
+      service_active_icon_s3_key, service_inactive_icon_s3_key, 
+      sort, gmt_deleted, creator, 
+      gmt_create, updater, gmt_modified
+      )
+    values (#{gkaServiceId,jdbcType=VARCHAR}, #{serviceId,jdbcType=VARCHAR}, #{organizationId,jdbcType=VARCHAR}, 
+      #{serviceName,jdbcType=VARCHAR}, #{serviceUrl,jdbcType=VARCHAR}, #{serviceImageS3Key,jdbcType=VARCHAR}, 
+      #{serviceActiveIconS3Key,jdbcType=VARCHAR}, #{serviceInactiveIconS3Key,jdbcType=VARCHAR}, 
+      #{sort,jdbcType=INTEGER}, #{gmtDeleted,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yunbo.demo.db.model.OrganizationServiceInfo">
+    insert into organization_service_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gkaServiceId != null">
+        gka_service_id,
+      </if>
+      <if test="serviceId != null">
+        service_id,
+      </if>
+      <if test="organizationId != null">
+        organization_id,
+      </if>
+      <if test="serviceName != null">
+        service_name,
+      </if>
+      <if test="serviceUrl != null">
+        service_url,
+      </if>
+      <if test="serviceImageS3Key != null">
+        service_image_s3_key,
+      </if>
+      <if test="serviceActiveIconS3Key != null">
+        service_active_icon_s3_key,
+      </if>
+      <if test="serviceInactiveIconS3Key != null">
+        service_inactive_icon_s3_key,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="gmtDeleted != null">
+        gmt_deleted,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="updater != null">
+        updater,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gkaServiceId != null">
+        #{gkaServiceId,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceId != null">
+        #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null">
+        #{organizationId,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceName != null">
+        #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceUrl != null">
+        #{serviceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceImageS3Key != null">
+        #{serviceImageS3Key,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceActiveIconS3Key != null">
+        #{serviceActiveIconS3Key,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceInactiveIconS3Key != null">
+        #{serviceInactiveIconS3Key,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="gmtDeleted != null">
+        #{gmtDeleted,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null">
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yunbo.demo.db.model.OrganizationServiceInfoExample" resultType="java.lang.Long">
+    select count(*) from organization_service_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update organization_service_info
+    <set>
+      <if test="record.gkaServiceId != null">
+        gka_service_id = #{record.gkaServiceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceId != null">
+        service_id = #{record.serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.organizationId != null">
+        organization_id = #{record.organizationId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceName != null">
+        service_name = #{record.serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceUrl != null">
+        service_url = #{record.serviceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceImageS3Key != null">
+        service_image_s3_key = #{record.serviceImageS3Key,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceActiveIconS3Key != null">
+        service_active_icon_s3_key = #{record.serviceActiveIconS3Key,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceInactiveIconS3Key != null">
+        service_inactive_icon_s3_key = #{record.serviceInactiveIconS3Key,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sort != null">
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.gmtDeleted != null">
+        gmt_deleted = #{record.gmtDeleted,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null">
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gmtCreate != null">
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null">
+        updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gmtModified != null">
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update organization_service_info
+    set gka_service_id = #{record.gkaServiceId,jdbcType=VARCHAR},
+      service_id = #{record.serviceId,jdbcType=VARCHAR},
+      organization_id = #{record.organizationId,jdbcType=VARCHAR},
+      service_name = #{record.serviceName,jdbcType=VARCHAR},
+      service_url = #{record.serviceUrl,jdbcType=VARCHAR},
+      service_image_s3_key = #{record.serviceImageS3Key,jdbcType=VARCHAR},
+      service_active_icon_s3_key = #{record.serviceActiveIconS3Key,jdbcType=VARCHAR},
+      service_inactive_icon_s3_key = #{record.serviceInactiveIconS3Key,jdbcType=VARCHAR},
+      sort = #{record.sort,jdbcType=INTEGER},
+      gmt_deleted = #{record.gmtDeleted,jdbcType=TIMESTAMP},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      updater = #{record.updater,jdbcType=VARCHAR},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yunbo.demo.db.model.OrganizationServiceInfo">
+    update organization_service_info
+    <set>
+      <if test="serviceId != null">
+        service_id = #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null">
+        organization_id = #{organizationId,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceName != null">
+        service_name = #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceUrl != null">
+        service_url = #{serviceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceImageS3Key != null">
+        service_image_s3_key = #{serviceImageS3Key,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceActiveIconS3Key != null">
+        service_active_icon_s3_key = #{serviceActiveIconS3Key,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceInactiveIconS3Key != null">
+        service_inactive_icon_s3_key = #{serviceInactiveIconS3Key,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="gmtDeleted != null">
+        gmt_deleted = #{gmtDeleted,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null">
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where gka_service_id = #{gkaServiceId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yunbo.demo.db.model.OrganizationServiceInfo">
+    update organization_service_info
+    set service_id = #{serviceId,jdbcType=VARCHAR},
+      organization_id = #{organizationId,jdbcType=VARCHAR},
+      service_name = #{serviceName,jdbcType=VARCHAR},
+      service_url = #{serviceUrl,jdbcType=VARCHAR},
+      service_image_s3_key = #{serviceImageS3Key,jdbcType=VARCHAR},
+      service_active_icon_s3_key = #{serviceActiveIconS3Key,jdbcType=VARCHAR},
+      service_inactive_icon_s3_key = #{serviceInactiveIconS3Key,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      gmt_deleted = #{gmtDeleted,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where gka_service_id = #{gkaServiceId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByExampleWithRowbounds" parameterType="com.yunbo.demo.db.model.OrganizationServiceInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from organization_service_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>
